@@ -3,3 +3,4 @@ trial-graphs/*
 build/*
 .DS_store
 .dropbox
+*.pyc
