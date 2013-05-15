@@ -94,9 +94,9 @@ def get_concepts():
 
 
 def build_graph(G, name, source, target, query, intermediate = None):
-    print "Building graph for {}.".format(name)
+    #print "Building graph for {}.".format(name)
     
-    print query
+    #print query
     
     sparql.setQuery(query)
     results = sparql.query().convert()
@@ -107,8 +107,8 @@ def build_graph(G, name, source, target, query, intermediate = None):
     
     for result in results["results"]["bindings"]:
         if not intermediate :
-            source_binding = uri_to_label(result[source]["value"])
-            target_binding = uri_to_label(result[target]["value"])
+            source_binding = uri_to_label(result[source]["value"]).replace("'","")
+            target_binding = uri_to_label(result[target]["value"]).replace("'","")
             
             
             G.add_node(source_binding, label=source_binding, type=source)
@@ -119,9 +119,9 @@ def build_graph(G, name, source, target, query, intermediate = None):
             
 
         else :
-            source_binding = uri_to_label(result[source]["value"])
-            intermediate_binding = uri_to_label(result[intermediate]["value"])
-            target_binding = uri_to_label(result[target]["value"])
+            source_binding = uri_to_label(result[source]["value"]).replace("'","")
+            intermediate_binding = uri_to_label(result[intermediate]["value"]).replace("'","")
+            target_binding = uri_to_label(result[target]["value"]).replace("'","")
             
             G.add_node(source_binding, label=source_binding, type=source)
             G.add_node(intermediate_binding, label=intermediate_binding, type=intermediate)
@@ -130,7 +130,7 @@ def build_graph(G, name, source, target, query, intermediate = None):
             G.add_edge(source_binding, intermediate_binding)
             G.add_edge(intermediate_binding, target_binding)
 
-    print "Done"
+    #print "Done"
 
     return G
 
@@ -260,7 +260,7 @@ def build_concept_matrix(concept_uri):
     concept_list = []
     
     for c in concepts :
-        c_dict = {'name': c, 'type': concept_types[c].lower(), 'color': concept_type_color_dict[concept_types[c].lower()] }
+        c_dict = {'name': c.replace("'",""), 'type': concept_types[c].lower(), 'color': concept_type_color_dict[concept_types[c].lower()] }
         concept_list.append(c_dict) 
     
     

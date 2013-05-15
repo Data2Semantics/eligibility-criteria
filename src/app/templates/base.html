@@ -4,11 +4,11 @@
 <head>
     <title>Eligibility Criteria Visualizer</title>
     <link rel="stylesheet" href="static/css/bootstrap.css" />
-<!--    <link rel="stylesheet" href="static/css/bootstrap-responsive.css" />-->
+    <link rel="stylesheet" href="static/css/commit.css" />
     <link rel="stylesheet" href="static/css/select2.css" />
     <link rel="stylesheet" href="static/css/select2-bootstrap.css" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="static/js/d3.v3.js"></script>
 
     <style>
 
@@ -79,19 +79,39 @@
 
     <div class="container">
         <div class="row">
-            <div class="span3">
+            <div class="span12">
+                <div class="page-header">
+                    <h1><img src="static/img/logo-no-text-150dpi.png"style="float: left; width: 100px;"/>Eligibility Criteria <small>A Visualisation</small> </h1>
+                    <p>Copyright (c) 2013, Krystyna Milian and Rinke Hoekstra, VU University Amsterdam</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+                <h4>Explore Clinical Trials</h4>
+                <p>When you select a trial from the drop down box, we will render a force-layout graph showing the <strong>trial</strong> itself, associated <strong>eligibility criteria</strong>, <strong>concepts</strong> and related <strong>trials</strong>.</p>
                 {% include 'trials.html' %}
             </div>
-            <div class="span3">
+            <div class="span4">
+                <h4>Explore Eligibility Criteria</h4>
+                <p>When you select an eligibility criterion, we will render a force-layout graph showing the <strong>criterion</strong> along with more <strong>specific</strong> and more <strong>general</strong> criteria.</p>
                 {% include 'criteria.html' %}
             </div>
-            <div class="span3">
+            <div class="span4">
+                <h4>Explore Concepts</h4>
+                <p>When you select a concept, we will render a chord-graph showing the co-occurrences of that <strong>concept</strong> with other concepts in clinical trials. Colors are determined by the concept <strong>types</strong>.</p>
                 {% include 'concepts.html' %}
             </div>
         </div>
         <div class="row">
             <div class="span12 graph" id="graph">
-                
+                {% include 'nothing_selected.html' %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <h5>Credits</h5>
+                <p>Thanks go to the most excellent <a href="http://d3js.org/">D3.js</a> library for the force- and chord layouts used on this page.</p>
             </div>
         </div>
     </div>
