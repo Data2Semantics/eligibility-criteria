@@ -1,0 +1,5 @@
+trial-graphs/*
+*.ipynb
+build/*
+.DS_store
+.dropbox

@@ -1,0 +1,32 @@
+<div class="control-group">
+        <div class="controls">
+                <label for="concepts"><i class="icon-search"></i> Select a Concept</label>
+                <select id="concepts" style="width: 100%; ">
+                        <option></option>
+                        {% for c in concepts %}
+                            <option id="{{ c.uri }}" value="{{ c.uri }}">{{ c.label }}</option>
+                        {% endfor %}
+                </select>
+        </div>
+</div>
+
+<script>
+    $(document).ready(function() { $("#concepts").select2({ placeholder: "Start typing..." , allowClear: true }); });
+    
+    $('#concepts').change(function () {
+        $("#concepts option:selected").each(function (){
+            
+            var concept_uri = $(this).attr('value')
+            
+            $("#graph").empty();
+            
+            $("#trials").select2("data","");
+            $("#criteria").select2("data","");
+            
+            $.get('/graph', {'type': 'concepts', 'uri': concept_uri }, function(data) {
+                $("#graph").html(data); 
+            });
+        });
+        
+    });
+</script>

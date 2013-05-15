@@ -1,0 +1,33 @@
+<div class="control-group">
+        <div class="controls">
+                <label for="criteria"><i class="icon-search"></i> Select a Criterion</label>
+                <select id="criteria" style="width: 100%; ">
+                        <option></option>
+                        {% for c in criteria %}
+                            <option id="{{ c.uri }}" value="{{ c.uri }}">{{ c.text }}</option>
+                        {% endfor %}
+                </select>
+        </div>
+</div>
+
+<script>
+    $(document).ready(function() { $("#criteria").select2({ placeholder: "Start typing..." , allowClear: true }); });
+    
+    $('#criteria').change(function () {
+        $("#criteria option:selected").each(function (){
+            
+            var criterion_uri = $(this).attr('value')
+            
+            $("#graph").empty();
+            
+            $("#trials").select2("data","");
+            $("#concepts").select2("data","");
+            
+            
+            $.get('/graph', {'type': 'criteria', 'uri': criterion_uri }, function(data) {
+                $("#graph").html(data); 
+            });
+        });
+        
+    });
+</script>

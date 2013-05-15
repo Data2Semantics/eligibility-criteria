@@ -1,0 +1,33 @@
+<div class="control-group">
+        <div class="controls">
+                <label for="trials"><i class="icon-search"></i> Select a Clinical Trial</label>
+                <select id="trials" style="width: 100%; ">
+                        <option></option>
+                        {% for t in trials %}
+                            <option id="{{ t.id }}" value="{{ t.uri }}">{{ t.id }}</option>
+                        {% endfor %}
+                </select>
+        </div>
+</div>
+
+<script>
+    $(document).ready(function() { $("#trials").select2({ placeholder: "Start typing..." , allowClear: true }); });
+    
+    $('#trials').change(function () {
+        $("#trials option:selected").each(function (){
+            
+            var trial_uri = $(this).attr('value')
+            var trial_id = $(this).attr('id')
+            
+            $("#graph").empty();
+            
+            $("#concepts").select2("data","");
+            $("#criteria").select2("data","");
+            
+            $.get('/graph', {'type': 'trials', 'uri': trial_uri, 'id': trial_id }, function(data) {
+                $("#graph").html(data); 
+            });
+        });
+        
+    });
+</script>
