@@ -151,10 +151,9 @@ def build_trial_to_criterion_graph(trial_uri, trial_id):
     
     
     g_json = json_graph.node_link_data(G) # node-link format to serialize
-    
-    graph_json =  json.dumps(g_json)
 
-    return graph_json
+
+    return g_json
 
 
 def build_pi_graph(criterion_uri):
@@ -178,9 +177,7 @@ def build_pi_graph(criterion_uri):
     
     g_json = json_graph.node_link_data(G) # node-link format to serialize
     
-    graph_json =  json.dumps(g_json)
-
-    return graph_json
+    return g_json
 
 
 def build_concept_matrix(concept_uri):
@@ -264,11 +261,8 @@ def build_concept_matrix(concept_uri):
         concept_list.append(c_dict) 
     
     
-    percent_concept_matrix_json = json.dumps(percent_concept_matrix)
-    concept_list_json = json.dumps(concept_list)
+    return percent_concept_matrix, concept_list
     
-    
-    return percent_concept_matrix_json, concept_list_json
     
     
 
