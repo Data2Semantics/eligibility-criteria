@@ -1,3 +1,17 @@
+function drawGraphForTrial(uri, id) {
+    $("#graph").empty();
+    $("#loading").show();
+    
+    $.get('/graph', {'type': 'trials', 'uri': uri, 'id': id }, function(data) {
+                $("#loading").hide();
+                if (data.graph.links.length > 0) {
+                        drawTrialGraph(data.graph);
+                } else {
+                        $("#noresponse").show();        
+                }
+    });
+}
+
 
 function drawTrialGraph(graph) {
   var width = 900,
@@ -30,8 +44,9 @@ function drawTrialGraph(graph) {
       .data(graph.nodes)
     .enter().append("circle")
       .attr("class", "node")
-      .attr("r", function(d) { return d.degree;})
+      .attr("r", function(d) { return d.degree + 5;})
       .style("fill", function(d) { return color(d.type); })
+      .on("click", function(d) { click(d); })
       .call(force.drag);
 
       
@@ -46,7 +61,7 @@ function drawTrialGraph(graph) {
                 .style("text-anchor", "middle")
                 .attr("dy", ".3em")
                 .attr("class", function(d) { return d.type;})
-                .text(function(d) {  return d.label;  });
+                .text(function(d) {  if (d.type != 'criterion') { return d.label; } else { return ''; }  });
   
       
 
@@ -62,5 +77,15 @@ function drawTrialGraph(graph) {
     texts.attr("transform", function(d) {
         return "translate(" + d.x + "," + d.y + ")";
     });
-  }); 
+  });
+  
+  function click(n) {
+        if (n.type == 'trial') {
+            drawGraphForTrial(n.uri, n.label);
+        }
+        if (n.type == 'concept') {
+            drawChordForConcept(n.uri);
+        }
+        
+  }
 }

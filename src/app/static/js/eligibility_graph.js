@@ -1,13 +1,14 @@
 
 function drawEligibilityGraph(graph) {
+  console.log(graph);
   var width = 900,
       height = 900;
   
   var color = d3.scale.category10();
   
   var force = d3.layout.force()
-      .charge(-120)
-      .linkDistance(20)
+      .charge(-600)
+      .linkDistance(50)
       .size([width, height]);
   
   var svg = d3.select("#graph").append("svg")
@@ -30,7 +31,7 @@ function drawEligibilityGraph(graph) {
       .data(graph.nodes)
     .enter().append("circle")
       .attr("class", "node")
-      .attr("r", function(d) { return d.degree;})
+      .attr("r", 25)
       .style("fill", function(d) { return color(d.type); })
       .call(force.drag);
 

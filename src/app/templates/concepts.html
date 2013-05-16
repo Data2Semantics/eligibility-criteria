@@ -16,17 +16,20 @@
     
     $('#concepts').change(function () {
         $("#concepts option:selected").each(function (){
-            
-            var concept_uri = $(this).attr('value')
-            
+            if ($(this).is(":empty")) {
+                return;
+            }
             $("#graph").empty();
-            
             $("#trials").select2("data","");
             $("#criteria").select2("data","");
             
-            $.get('/graph', {'type': 'concepts', 'uri': concept_uri }, function(data) {
-                drawChord(data.matrix, data.concepts, "#graph");
-            });
+            $("#noselection").hide();
+            $("#noresponse").hide();
+            $("#loading").show();
+            
+            var concept_uri = $(this).attr('value')
+            
+            drawChordForConcept(concept_uri);
         });
         
     });

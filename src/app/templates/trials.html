@@ -14,20 +14,25 @@
 <script>
     $(document).ready(function() { $("#trials").select2({ placeholder: "Start typing..." , allowClear: true }); });
     
-    $('#trials').change(function () {
+    $('#trials').change(function () {   
         $("#trials option:selected").each(function (){
+            if ($(this).is(":empty")) {
+                return;
+            }
+            $("#graph").empty();
+            $("#concepts").select2("data","");
+            $("#criteria").select2("data","");
+            
+            $("#noselection").hide();
+            $("#noresponse").hide();
+            $("#loading").show();
+            
             
             var trial_uri = $(this).attr('value')
             var trial_id = $(this).attr('id')
             
-            $("#graph").empty();
-            
-            $("#concepts").select2("data","");
-            $("#criteria").select2("data","");
-            
-            $.get('/graph', {'type': 'trials', 'uri': trial_uri, 'id': trial_id }, function(data) {
-                drawTrialGraph(data.graph);
-            });
+            drawGraphForTrial(trial_uri, trial_id);
+
         });
         
     });

@@ -30,6 +30,11 @@
           display: none;
         }
         
+        .criterion {
+            font: 3px "Yanone Kaffeesatz", sans-serif;
+            
+        }
+        
         .trial {
           font: 8px "Yanone Kaffeesatz", sans-serif;
         }
@@ -38,13 +43,10 @@
           font: 15px "Yanone Kaffeesatz", sans-serif;
         }
         
-        .parent {
-            font: 15px "Yanone Kaffeesatz", sans-serif;
+        .trial_cg, .criterion_cg {
+            font: 12px "Yanone Kaffeesatz", sans-serif;
         }
         
-        .child {
-            font: 10px "Yanone Kaffeesatz", sans-serif;
-        }
     
         .graph {
             overflow: scroll;   
@@ -103,9 +105,14 @@
                 {% include 'concepts.html' %}
             </div>
         </div>
+        {% include 'nothing_selected.html' %}
+        {% include 'loading.html' %}
+        {% include 'nothing_returned.html' %}
         <div class="row">
-            <div class="span12 graph" id="graph">
-                {% include 'nothing_selected.html' %}
+            <div class="span12">
+                <div class="graph" id="graph">
+                &nbsp;
+                </div>
             </div>
         </div>
         <div class="row">
@@ -116,6 +123,12 @@
         </div>
     </div>
 
+    <script type="application/x-javascript">
+        $(document).ready(function() {
+            $("#loading").toggle();
+            $("#noresponse").toggle();
+        });
+    </script>
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/select2.js"></script>
     <script src="static/js/vendor/jquery.ui.widget.js"></script> 

@@ -1,3 +1,19 @@
+function drawChordForConcept(uri) {
+    $('#graph').empty();
+    $("#loading").show();
+    $.get('/graph', {'type': 'concepts', 'uri': uri }, function(data) {
+                $("#loading").hide();
+                if (data) {
+                        drawChord(data.matrix, data.concepts, "#graph");
+                } else {
+                        $("#noresponse").show();
+                }
+                
+            });
+}
+
+
+
 
 function drawChord(matrix, concepts, target) {
     var width = 900,
@@ -42,12 +58,11 @@ function drawChord(matrix, concepts, target) {
         .data(layout.groups)
       .enter().append("g")
         .attr("class", "group")
-        .on("mouseover", mouseover);
+        .on("mouseover", mouseover)
+        .on("click", function(d,i){ click(concepts[i]); });
 
     // Add a mouseover title.
     group.append("title").text(function(d, i) {
-      console.log('Title for '+i);
-      console.log('= '+ concepts[i].name);
       return concepts[i].name + ": " + formatPercent(d.value) + " of origins";
       
     });
@@ -107,6 +122,11 @@ function drawChord(matrix, concepts, target) {
         return p.source.index != i
             && p.target.index != i;
       });
+    }
+    
+    function click(concept) {
+        console.log(concept)
+        drawChordForConcept(concept.uri);
     }
 }
 

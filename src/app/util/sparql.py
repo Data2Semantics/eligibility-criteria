@@ -76,7 +76,6 @@ def get_concepts():
     
     
     results = sparql.query().convert()
-    
     concepts = []
     
     for result in results["results"]["bindings"]:
@@ -111,8 +110,8 @@ def build_graph(G, name, source, target, query, intermediate = None):
             target_binding = uri_to_label(result[target]["value"]).replace("'","")
             
             
-            G.add_node(source_binding, label=source_binding, type=source)
-            G.add_node(target_binding, label=target_binding, type=target)
+            G.add_node(source_binding, label=source_binding, type=source, uri=result[source]["value"])
+            G.add_node(target_binding, label=target_binding, type=target, uri=result[target]["value"])
             G.add_edge(source_binding,target_binding)
             
             
@@ -123,9 +122,9 @@ def build_graph(G, name, source, target, query, intermediate = None):
             intermediate_binding = uri_to_label(result[intermediate]["value"]).replace("'","")
             target_binding = uri_to_label(result[target]["value"]).replace("'","")
             
-            G.add_node(source_binding, label=source_binding, type=source)
-            G.add_node(intermediate_binding, label=intermediate_binding, type=intermediate)
-            G.add_node(target_binding, label=target_binding, type=target)
+            G.add_node(source_binding, label=source_binding, type=source, uri=result[source]["value"])
+            G.add_node(intermediate_binding, label=intermediate_binding, type=intermediate, uri=result[intermediate]["value"])
+            G.add_node(target_binding, label=target_binding, type=target, uri=result[target]["value"])
             
             G.add_edge(source_binding, intermediate_binding)
             G.add_edge(intermediate_binding, target_binding)
@@ -146,6 +145,18 @@ def build_trial_to_criterion_graph(trial_uri, trial_id):
     
     G.node[origin_node_id]['type'] = 'origin'
     
+    names = {}
+    for n, nd in G.nodes(data=True):
+        if nd['type'] == 'trial' or nd['type'] == 'origin':
+            label = nd['label'].replace('Trial','').upper()            
+            names[n] = label
+        else :
+            names[n] = nd['label']
+    
+    nx.set_node_attributes(G,'label', names)
+    
+    
+    
     deg = nx.degree(G)
     nx.set_node_attributes(G,'degree',deg)
     
@@ -164,15 +175,17 @@ def build_pi_graph(criterion_uri):
     G = build_graph(G, criterion_uri, "child", "trial", q_up, intermediate = "parent")
     G = build_graph(G, criterion_uri, "parent", "trial", q_down, intermediate = "child")
     
-    deg = nx.degree(G)
+
     
-    ndeg = {}
+    types = {}
+    for n, nd in G.nodes(data=True):
+        if nd['type'] != 'trial' :
+            types[n] = 'criterion_cg'
+        else :
+            types[n] = 'trial_cg'
     
-    for k,v in deg.items():
-        ndeg[k] = v*8
     
-    
-    nx.set_node_attributes(G,'degree', ndeg)
+    nx.set_node_attributes(G,'type', types)
     
     
     g_json = json_graph.node_link_data(G) # node-link format to serialize
@@ -191,6 +204,7 @@ def build_concept_matrix(concept_uri):
     
     concept_set = set()
     
+    concept_uris = {}
     concept_types = {}
     
     for result in results["results"]["bindings"]:
@@ -212,6 +226,9 @@ def build_concept_matrix(concept_uri):
         
         concept_types[c1] = c1t
         concept_types[c2] = c2t
+        
+        concept_uris[c1] = result['c1']['value'];
+        concept_uris[c2] = result['c2']['value'];
         
     
 
@@ -257,7 +274,7 @@ def build_concept_matrix(concept_uri):
     concept_list = []
     
     for c in concepts :
-        c_dict = {'name': c.replace("'",""), 'type': concept_types[c].lower(), 'color': concept_type_color_dict[concept_types[c].lower()] }
+        c_dict = {'name': c.replace("'",""), 'type': concept_types[c].lower(), 'color': concept_type_color_dict[concept_types[c].lower()], 'uri' : concept_uris[c] }
         concept_list.append(c_dict) 
     
     

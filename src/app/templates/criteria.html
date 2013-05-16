@@ -16,17 +16,28 @@
     
     $('#criteria').change(function () {
         $("#criteria option:selected").each(function (){
-            
-            var criterion_uri = $(this).attr('value')
-            
+            if ($(this).is(":empty")) {
+                return;
+            }
             $("#graph").empty();
-            
             $("#trials").select2("data","");
             $("#concepts").select2("data","");
             
+            $("#noselection").hide();
+            $("#noresponse").hide();
+            $("#loading").show();
+            
+            var criterion_uri = $(this).attr('value')
             
             $.get('/graph', {'type': 'criteria', 'uri': criterion_uri }, function(data) {
-                drawEligibilityGraph(data.graph);
+                $("#loading").hide();
+                console.log(data);
+                if (data.graph.links.length > 0) {
+                        drawEligibilityGraph(data.graph);
+                } else {
+                        $("#noresponse").show();        
+                }
+                
             });
         });
         
