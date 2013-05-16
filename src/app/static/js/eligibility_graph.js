@@ -1,24 +1,18 @@
 
-<script>
-
-
-var data = '{{ graph|safe }}';
-
-var graph = JSON.parse(data);
-
-var width = 900,
-    height = 900;
-
-var color = d3.scale.category10();
-
-var force = d3.layout.force()
-    .charge(-120)
-    .linkDistance(20)
-    .size([width, height]);
-
-var svg = d3.select("#graph").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+function drawEligibilityGraph(graph) {
+  var width = 900,
+      height = 900;
+  
+  var color = d3.scale.category10();
+  
+  var force = d3.layout.force()
+      .charge(-120)
+      .linkDistance(20)
+      .size([width, height]);
+  
+  var svg = d3.select("#graph").append("svg")
+      .attr("width", width)
+      .attr("height", height);
 
 
   force
@@ -68,7 +62,5 @@ var svg = d3.select("#graph").append("svg")
     texts.attr("transform", function(d) {
         return "translate(" + d.x + "," + d.y + ")";
     });
-  });
-
-
-</script>
+  }); 
+}

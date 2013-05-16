@@ -1,40 +1,35 @@
 
-
-<script>
-
-var width = 900,
+function drawChord(matrix, concepts, target) {
+    var width = 900,
     height = 900,
     outerRadius = Math.min(width-150, height-150) / 2 - 10,
     innerRadius = outerRadius - 24;
 
-var formatPercent = d3.format(".1%");
-
-var arc = d3.svg.arc()
-    .innerRadius(innerRadius)
-    .outerRadius(outerRadius);
-
-var layout = d3.layout.chord()
-    .padding(.04)
-    .sortSubgroups(d3.descending)
-    .sortChords(d3.ascending);
-
-var path = d3.svg.chord()
-    .radius(innerRadius);
-
-var svg = d3.select("#graph").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("id", "circle")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-svg.append("circle")
-    .attr("r", outerRadius);
+    var formatPercent = d3.format(".1%");
     
+    var arc = d3.svg.arc()
+        .innerRadius(innerRadius)
+        .outerRadius(outerRadius);
     
-var matrix = JSON.parse('{{ matrix|safe }}');
+    var layout = d3.layout.chord()
+        .padding(.04)
+        .sortSubgroups(d3.descending)
+        .sortChords(d3.ascending);
+    
+    var path = d3.svg.chord()
+        .radius(innerRadius);
+    
+    var svg = d3.select(target).append("svg")
+        .attr("width", width)
+        .attr("height", height)
+      .append("g")
+        .attr("id", "circle")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    
+    svg.append("circle")
+        .attr("r", outerRadius);    
+    
 
-var concepts = JSON.parse('{{ concepts|safe }}'); 
 
 
 
@@ -113,7 +108,5 @@ var concepts = JSON.parse('{{ concepts|safe }}');
             && p.target.index != i;
       });
     }
-
-
-</script>
+}
 
