@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-from flask import render_template, g, request
+from flask import render_template, g, request, jsonify
 import util.sparql as s
 
 
@@ -28,9 +28,9 @@ def graph():
         if trial_uri == '' :
             return 'Nada'
         else :
-            graph_json = s.build_trial_to_criterion_graph(trial_uri, trial_id)
+            graph = s.build_trial_to_criterion_graph(trial_uri, trial_id)
         
-        return render_template('graph.html', graph = graph_json)
+        return jsonify(graph = graph)
     
     elif graph_type == 'criteria' :
         criterion_uri = request.args.get('uri','')
@@ -38,9 +38,9 @@ def graph():
         if criterion_uri == '':
             return 'Rien'
         else :
-            graph_json = s.build_pi_graph(criterion_uri)
+            graph = s.build_pi_graph(criterion_uri)
             
-        return render_template('graph.html', graph=graph_json)
+        return jsonify(graph=graph)
     
     elif graph_type == 'concepts' :
         concept_uri = request.args.get('uri','')
@@ -48,9 +48,9 @@ def graph():
         if concept_uri == '':
             return 'Niente'
         else :
-            matrix_json, concepts_json = s.build_concept_matrix(concept_uri)
+            matrix, concepts = s.build_concept_matrix(concept_uri)
             
-        return render_template('chord.html', matrix=matrix_json, concepts=concepts_json)
+        return jsonify(matrix=matrix, concepts=concepts)
         
     
     return "Nothing! Oops"
