@@ -54,3 +54,11 @@ def graph():
         
     
     return "Nothing! Oops"
+
+@app.route('/pattern')
+def pattern():
+    patterns = s.get_patterns()
+    
+    return patterns
+    
+    

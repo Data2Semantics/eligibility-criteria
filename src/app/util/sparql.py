@@ -282,6 +282,38 @@ def build_concept_matrix(concept_uri):
     
     
     
+def get_patterns():
+    PREFIX = "http://eligibility.data2semantics.org/resource/"
+
+    q = render_template('patterns.q')
+    
+    sparql.setQuery(q)
+    
+    results = sparql.query().convert()
+    
+    patterns = []
+    for result in results['results']['bindings'] :
+        pattern_uri =  result['pattern']['value']
+        
+        pattern = pattern_uri.replace(PREFIX,'')
+        pattern = pattern.replace('_',' ')
+        pattern = pattern.replace('  ',' ')
+        pattern = pattern.replace('()','{}')
+        
+        
+        
+        try :
+            pattern_string = pattern.format('X','Y', 'Z')
+        except :
+            pattern_string = pattern
+            
+        patterns.append({'uri': pattern_uri, 'text': pattern_string, 'template': pattern})
+        
+    from pprint import pprint
+    pprint(patterns)
+    
+    return patterns
+
 
     
 
