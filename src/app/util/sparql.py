@@ -87,6 +87,25 @@ def get_concepts():
         
     return concepts
 
+def get_values():
+    q = render_template('values.q')
+    
+    sparql.setQuery(q)
+    
+    
+    results = sparql.query().convert()
+    values = []
+    
+    for result in results["results"]["bindings"]:
+        datatype = result['value']['datatype']
+        value_label = result['value']['value']
+        
+        value_uri = '"{}"^^<{}>'.format(value_label, datatype)
+            
+        values.append({'uri': value_uri, 'label': value_label})
+        
+        
+    return values
 
 
 
@@ -309,11 +328,23 @@ def get_patterns():
             
         patterns.append({'uri': pattern_uri, 'text': pattern_string, 'template': pattern})
         
-    from pprint import pprint
-    pprint(patterns)
-    
     return patterns
 
 
+def get_pattern_instances(pattern_uri):
     
+    q = render_template('pattern_instances.q', pattern_uri = pattern_uri)
+    
+    sparql.setQuery(q)
+    
+    results = sparql.query().convert()
+    
+    pattern_instances = []
+    for result in results['results']['bindings'] :
+        pi_uri =  uri_to_label(result['instance']['value'].rstrip(' PI'))
+        
+        pattern_instances.append(pi_uri)
+        
+    return pattern_instances
+
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Clinical Trial Editor</title>
+    <link rel="stylesheet" href="static/css/bootstrap.css" />
+    <link rel="stylesheet" href="static/css/commit.css" />
+    <link rel="stylesheet" href="static/css/select2.css" />
+    <link rel="stylesheet" href="static/css/select2-bootstrap.css" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/static/js/jquery.storage.js"></script>
+    <!--<script src="static/js/d3.v3.js"></script>-->
+    
+    <style>
+        
+        .examples {
+            font-size: 10px;
+            line-height: 1.4;
+        }
+        
+    </style>
+
+    
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="page-header">
+                    <h1><img src="static/img/logo-no-text-150dpi.png"style="float: left; width: 100px;"/>Clinical Trials <small>An Editor</small> </h1>
+                    <p>Copyright (c) 2013, Krystyna Milian and Rinke Hoekstra, VU University Amsterdam</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+                <h4>Patterns</h4>
+                {% include 'patterns.html' %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <div class="editor" id="editor">
+                &nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+
+    <script type="application/x-javascript">
+        $(document).ready(function() {
+            // nothing
+        });
+    </script>
+    <script src="static/js/bootstrap.js"></script>
+    <script src="static/js/select2.js"></script>
+    <script src="static/js/vendor/jquery.ui.widget.js"></script> 
+</body>
+</html>

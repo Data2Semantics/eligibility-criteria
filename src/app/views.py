@@ -55,10 +55,36 @@ def graph():
     
     return "Nothing! Oops"
 
-@app.route('/pattern')
-def pattern():
+@app.route('/editor')
+def editor():
     patterns = s.get_patterns()
     
-    return patterns
+    return render_template('editor.html', patterns = patterns)
     
+    
+@app.route('/patternvalues')
+def patternvalues():
+    concepts = s.get_concepts()
+    values = s.get_values()
+    
+    options = []
+    options.extend(concepts)
+    options.extend(values)
+    
+    values = []
+    for o in options:
+        v = {'id' : o['uri'], 'text': o['label']}
+        print o['uri']
+        values.append(v)
+           
+    
+    return jsonify(values = values)
+
+@app.route('/patterninstances', methods= ['GET'])
+def patterninstances():
+    pattern_uri = request.args.get('uri','')
+    pattern_instances =  s.get_pattern_instances(pattern_uri)
+    
+    return jsonify(instances = pattern_instances)
+
     

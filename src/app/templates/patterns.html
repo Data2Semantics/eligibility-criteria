@@ -1,0 +1,121 @@
+<div class="control-group">
+        <div class="controls">
+                <label for="patterns"><i class="icon-search"></i> Select a Pattern</label>
+                <select id="patterns" style="width: 100%; ">
+                        <option></option>
+                        {% for p in patterns %}
+                            <option id="{{ p.uri }}" value="{{ p.uri }}" template="{{ p.template }}">{{ p.text }}</option>
+                        {% endfor %}
+                </select>
+        </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#patterns").select2({ placeholder: "Start typing..." , allowClear: true });
+        
+        $.get('/patternvalues', function(data){
+            $.localStorage('patternvalues',data.values);            
+            console.log('added to local storage');
+        });    
+    });
+    
+    $('#patterns').change(function () {
+        $("#patterns option:selected").each(function (){
+            if ($(this).is(":empty")) {
+                return;
+            }
+            
+            var pattern_uri = $(this).attr('value');
+            var pattern_template = $(this).attr('template');
+            var pattern_text = $(this).attr('text');
+            
+            buildPatternCombo(pattern_uri, pattern_template, pattern_text);
+        });
+        
+    });
+    
+    
+    function buildPatternCombo(pattern_uri, pattern_template, pattern_text)
+    {
+        var pattern_values = $.localStorage('patternvalues');
+        
+        var default_datatype_suffix = '^^<http://www.w3.org/2001/XMLSchema#string>';
+        
+        var needle = '{}';
+        var re = new RegExp(needle, 'g');
+        
+        
+        // Replace the {} in pattern_template with input fields, create a div, and add it to the #editor div
+        pattern_html = pattern_template.replace(re, '<input type="hidden"></input><a class="add"><i class="icon-plus"></i></a>');
+        
+        var pattern_div = $('<div class="pattern alert alert-info">'
+                            +'<a href="#" class="close" data-dismiss="alert"><i class="icon-remove"></i></a>'
+                            +pattern_html
+                            +'</div>');
+        
+        
+        
+        $('#editor').append(pattern_div);
+        
+        
+        // Build some examples (i.e. show instances of the pattern selected)
+        
+        $.getJSON('/patterninstances',{'uri': pattern_uri}, function(data){
+            console.log(data.instances);
+            if (data.instances.length != 0) {
+                var examples_close = $('<a href="#" class="close"><i class="icon-remove"></i></a>');
+                var examples_div = $('<div class="alert alert-warning examples"></div>').append(examples_close).hide();
+                 
+                examples_close.click(function(event){
+                    examples_div.toggle();
+                })
+                 
+                
+                $.each(data.instances, function (key, value){
+                    examples_div.append('<div class="small">'+value+'</div>');
+                });
+                
+                var help = $('<a href="#" class="close"><i class="icon-question-sign"></i></a>');
+                help.click(function(event) {
+                    examples_div.toggle();
+                });
+                
+                pattern_div.append("&nbsp;");
+                pattern_div.append(help);
+                
+                $('#editor').append(examples_div);
+            }
+        });
+ 
+ 
+        // This is the Select2 stuff.
+        
+        var select2_initialization = {
+            data : pattern_values,
+            placeholder: 'concept or value',
+            width: '200px',
+            multiple: false,
+            createSearchChoice:function(term, data) {
+                if ($(data).filter(function() {
+                                        return this.text.localeCompare(term)===0;
+                                    }).length===0) {
+                    
+                    new_value = {'id': '"'+ term +'"'+default_datatype_suffix, 'text': term};
+                    return new_value;
+                }
+            }
+        }
+ 
+        $('#editor input').select2(select2_initialization);       
+        
+        $('#editor .add').click(function(event) {
+            var new_input = $('<input type="hidden"></input>');
+            
+            
+            $(this).before(new_input);
+            new_input.select2(select2_initialization);
+        });
+        
+    }
+</script>
