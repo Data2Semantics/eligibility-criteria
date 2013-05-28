@@ -74,7 +74,6 @@ def patternvalues():
     values = []
     for o in options:
         v = {'id' : o['uri'], 'text': o['label']}
-        print o['uri']
         values.append(v)
            
     
