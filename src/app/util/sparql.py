@@ -100,6 +100,27 @@ def get_values():
         datatype = result['value']['datatype']
         value_label = result['value']['value']
         
+        m = re.search(r'(?P<seconds>.+E\d+)\ s',value_label)
+    
+        if m :
+            seconds = float(m.group('seconds'))
+    
+            s_per_y = float('3.15569e7') # from google
+            s_per_m = float('2.62974e6') # from google
+            years = seconds/s_per_y
+            
+            if years < 2 :
+                months = seconds/s_per_m
+                
+                value_label = "{} months".format(int(months))
+                
+            else :
+                value_label = "{} years".format(int(years))
+            
+            print value_label
+            
+        
+        
         value_uri = '"{}"^^<{}>'.format(value_label, datatype)
             
         values.append({'uri': value_uri, 'label': value_label})
