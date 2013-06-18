@@ -5,3 +5,4 @@ build/*
 .dropbox
 *.pyc
 *.pyc
+*.komodoproject
