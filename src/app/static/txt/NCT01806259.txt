@@ -1,0 +1,20 @@
+Inclusion Criteria:
+
+1.      Written informed Consent
+2.      age : 18-85 years
+3.      weight: 50-100 kg
+4.      Neutrophils / Lymphocytes ratio >4 and/or "triple negative" histological status and/or Positive lymph nodes
+
+Exclusion Criteria:
+
+1.	Previous cancer (behalf of basocellular skin cancer and in situ uterine cervix cancer)
+2.	Non compliance or refusal of the protocol
+3.	Positive Pregnancy test
+4.	Childbearing or breastfeeding mothers
+5.	Contra-indication for NSAIDs
+6.	NSAIDs intake in the 5 days before randomisation
+7.	NSAIDs use planned in the 30 days after randomisation
+8.	Non curative surgery (T4 or M1 tumor classification )
+
+
+http://clinicaltrials.gov/ct2/show/record/NCT01806259?term=NCT01806259

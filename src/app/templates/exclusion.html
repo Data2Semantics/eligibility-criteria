@@ -1,0 +1,37 @@
+ <div class="control-group">
+                    <div class="controls">
+                    <label for="patterns"><i class="icon-search"></i> Select a Pattern</label>
+                    <select id="patternsE" style="width: 100%; ">
+                            <option></option>
+                            {% for p in patterns %}
+                                <option id="{{ p.uri }}" value="{{ p.uri }}" template="{{ p.template }}">{{ p.text }}</option>
+                            {% endfor %}
+                    </select>
+                            </div>
+                    </div>
+<script>
+    $(document).ready(function() {        
+        $("#patternsE").select2({ placeholder: "Start typing..." , allowClear: true });
+        
+        $.get('/patternvalues', function(data){
+            $.localStorage('patternvalues',data.values);            
+            console.log('added to local storage');
+        });    
+    });
+    
+    $('#patternsE').change(function () {
+        $("#patternsE option:selected").each(function (){
+            if ($(this).is(":empty")) {
+                return;
+            }
+            
+            var pattern_uri = $(this).attr('value');
+            var pattern_template = $(this).attr('template');
+            var pattern_text = $(this).attr('text');
+            
+            buildPatternCombo(pattern_uri, pattern_template, pattern_text, 'e');
+        });
+        
+    });
+    
+</script>

@@ -1,0 +1,43 @@
+Inclusion Criteria:
+
+    1.	Female gender
+    2.	Age ³ 18 years
+    3.	Eastern Cooperative Oncology Group (ECOG) performance status 0 or 1
+    4.	Premenopausal status defined as the presence of active menstrual cycle or normal menses during the 6 weeks preceding the start of study treatment. Biochemical evidence of phase of menstrual cycle is required (estradiol, FSH and LH). In women previously exposed to hysterectomy, premenopausal levels of estradiol, FSH and LH are required to be eligible
+    5.	Non-metastatic operable newly diagnosed primary invasive carcinoma of the breast that is:
+    6.	Histologically confirmed
+    7.	Primary tumor size greater than 1.5 cm, measured by any of clinical examination, mammography, ultrasound or magnetic resonance imaging
+    8.	Any clinical nodal status
+    9.	Fully operable and not fixed to chest wall.
+    10.	Known HER2 status
+    11.	Known estrogen receptor (ER) status and progesterone receptor status (PgR)
+    12.	Patient has adequate bone marrow and organ function as shown by:
+    13.	Absolute neutrophil count (ANC) ³ 1.5 x 109/L
+    14.	Platelets ³ 100 x 109/L
+    15.	Hemoglobin (Hgb) ³ 9.0 g/dL
+    16.	Serum creatinine ² 1.5 x ULN
+    17.	Total serum bilirubin ² 1.5 x ULN (in patients with known Gilbert Syndrome, a total bilirubin ² 3.0 x ULN, with direct bilirubin ² 1.5 x ULN)
+    18.	AST and ALT ² 1.5 x ULN
+    19.	Random blood sugar (RBS) ² 200 mg/dL or ² 11.1 mmol/L
+    20.	Glycosylated hemoglobin (HbA1c) ² 8 %
+    21.	Albumin-adjusted serum calcium ³ 8.0 mg/dL (³ 2.0 mmol/L)
+    22.	Women of childbearing potential must agree to use an active local contraception method for the duration of the study and for at least 7 months after the last dose of study treatment
+    23.	Patients must accept to take calcium and vitamin D supplementation until the completion of the study treatment
+    24.	Signed informed consent form (ICF) for all study procedures according to local regulatory requirements prior to beginning of the study
+    25.	Patients must accept to make available tumor and normal tissue samples for submission to central laboratory at the Jules Bordet Institute, Brussels, Belgium, to conduct translational studies as part of this protocol.
+
+Exclusion Criteria:
+
+    1.	History of any prior (ipsi and/or contralateral) breast cancer
+    2.	Any "clinical" T4 tumor defined by TNM including inflammatory breast cancer
+    3.	History of non-breast malignancies within the 5 years prior to study entry (except carcinoma in situ of the cervix, of the colon, melanoma in situ and basal cell and squamous cell carcinomas of the skin)
+    4.	Prior or planned systemic anti-cancer therapy before definitive surgery
+    5.	Unhealed or planned dental/oral surgery, current or previous osteonecrosis or osteomyelitis of the jaw
+    6.	Pregnant or lactating women or women of childbearing potential without a negative serum or urinary pregnancy test within 7 days prior to starting study treatment; irrespective of the method of contraception used
+    7.	Active Hepatitis-B virus (HBV), Hepatitis-C virus (HCV) or human immunodeficiency virus (HIV) infection
+    8.	Known hypersensitivity to denosumab
+    9.	Bilateral invasive tumors
+    10.	Multifocal/multicentric tumors
+    
+    
+http://clinicaltrials.gov/ct2/show/NCT01864798

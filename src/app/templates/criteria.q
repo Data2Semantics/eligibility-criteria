@@ -7,4 +7,6 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 SELECT DISTINCT ?criterion ?text WHERE {
   ?criterion rdf:type etv:Criterion .
   ?criterion etv:hasOriginalText ?text .
+  ?criterion etv:hasContent ?patternInstance. 
+  ?patternInstance etv:isMoreStrict ?patternInstance2
 } ORDER BY ?criterion
