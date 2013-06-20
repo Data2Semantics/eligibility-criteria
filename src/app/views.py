@@ -62,7 +62,19 @@ def editor():
     
     return render_template('editor.html', patterns = patterns)
     
+@app.route('/savetrial', methods=['POST'])
+def savetrial():
+    print request.json
     
+    patterns = request.json['patterns']
+    trial = request.json['trial']
+    
+    trial_rdf = s.build_trial_rdf(trial, patterns)
+    
+    return 'Success!'
+
+
+
 @app.route('/patternvalues')
 def patternvalues():
     concepts = s.get_concepts()

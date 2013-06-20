@@ -162,6 +162,7 @@
                     
                     console.log(criteria);
                     
+                    var pattern_text = $(pattern).text();
                     
                     var eval_buttons = $(evaluation).find('input');
                     
@@ -177,7 +178,7 @@
                     
                     
                     
-                    var data = {'type': pattern_type, 'uri': pattern_uri, 'criteria': criteria, 'complete': complete};
+                    var data = {'type': pattern_type, 'uri': pattern_uri, 'text': pattern_text, 'criteria': criteria, 'complete': complete};
                     
                     pattern_data.push(data);
                     
@@ -186,6 +187,22 @@
                 var trial_data = {'trial': trial, 'patterns': pattern_data};
                 
                 console.log(trial_data);
+                
+                $.ajax({
+                    type: 'POST',
+                    // Provide correct Content-Type, so that Flask will know how to process it.
+                    contentType: 'application/json',
+                    // Encode your data as JSON.
+                    data: JSON.stringify(trial_data),
+                    // This is the type of data you're expecting back from the server.
+                    dataType: 'json',
+                    url: '/savetrial',
+                    success: function (e) {
+                        console.log(e);
+                    }
+                });
+                
+                
             });
         });
     </script>

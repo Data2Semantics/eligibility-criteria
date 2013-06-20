@@ -7,6 +7,9 @@ from urllib import unquote_plus
 import networkx as nx
 from networkx.readwrite import json_graph
 import json
+from rdflib import Graph, Namespace, RDF, RDFS, Literal, URIRef
+from rdflib.serializer import Serializer
+import rdfextras
 
 from app import app
 
@@ -368,4 +371,62 @@ def get_pattern_instances(pattern_uri):
         
     return pattern_instances
 
+
+def build_trial_rdf(trial, patterns):
+    ETV = Namespace('http://eligibility.data2semantics.org/vocab/')
+    ET = Namespace('http://eligibility.data2semantics.org/resource/')
+    
+    
+    
+    trial_uri = ET['trial/{}'.format(trial)]
+    
+    g = Graph();
+    g.bind('etv', ETV)
+    g.bind('et', ET)
+    
+    for pattern in patterns:
+        
+        pattern_qname = re.sub('\s+','_', pattern['text'])
+        pattern_text = re.sub('\s+',' ', pattern['text'])
+        c_uri = ET['{}_C'.format(pattern_qname)]
+        pi_uri = ET['{}_PI'.format(pattern_qname)]
+        
+        g.add((trial_uri, RDF['type'], ETV['Trial']))
+        g.add((trial_uri, ETV['hasCriterion'], c_uri))
+        
+        if pattern['type'] == 'i' :
+            g.add((trial_uri, ETV['hasInclusionCriterion'], c_uri))
+        elif pattern['type'] == 'e' :
+            g.add((trial_uri, ETV['hasExclusionCriterion'], c_uri))
+        
+        g.add((c_uri, RDF['type'], ETV['Criterion']))
+        g.add((c_uri, ETV['isUsedInTrial'], trial_uri))
+        g.add((c_uri, ETV['hasOriginalText'], Literal(pattern_text)))
+        
+        
+        g.add((pi_uri, RDF['type'], ETV['PatternInstance']))
+        g.add((pi_uri, RDF['type'], URIRef(pattern['uri'])))
+        g.add((pi_uri, ETV['occursIn'], c_uri))
+        
+        
+        for c in pattern['criteria']:
+            print c
+            if c.startswith('\"') :
+                c_text = c.strip('"')
+
+                g.add((pi_uri, ETV['hasContent'], Literal(c_text)))
+                
+            else :
+                g.add((pi_uri, ETV['hasContent'], URIRef(c)))
+                g.add((URIRef(c), RDF['type'], ETV['Concept']))
+            
+    serialized =  g.serialize(format='turtle')
+        
+    print serialized
+    return serialized
+        
+        
+    
+    
+    
 

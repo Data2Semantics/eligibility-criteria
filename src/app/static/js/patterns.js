@@ -10,7 +10,7 @@
         
         var pattern_values = $.localStorage('patternvalues');
         
-        var default_datatype_suffix = '^^<http://www.w3.org/2001/XMLSchema#string>';
+        // var default_datatype_suffix = '^^<http://www.w3.org/2001/XMLSchema#string>';
         
         var needle = '{}';
         var re = new RegExp(needle, 'g');
@@ -85,7 +85,7 @@
                                         return this.text.localeCompare(term)===0;
                                     }).length===0) {
                     
-                    new_value = {'id': '"'+ term +'"'+default_datatype_suffix, 'text': term};
+                    new_value = {'id': '"'+ term +'"', 'text': term};
                     return new_value;
                 }
             }
