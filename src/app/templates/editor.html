@@ -24,6 +24,7 @@
     
     <style>
         
+/*        pre {
       
         font-size: 10px;
         }*/
@@ -131,6 +132,43 @@
                 console.log(data.values);
                 console.log('added pattern values to local storage');
             });
+            
+            $.getJSON('/patterns', function(data){
+                $.localStorage('patterns',data.patterns);            
+                console.log('added patterns to local storage');
+                
+                
+                var inclusion_patterns_initialization = {
+                    data : data.patterns,
+                    placeholder: 'pattern',
+                    width: '100%',
+                    multiple: false
+                }
+                
+                var exclusion_patterns_initialization = {
+                    data : data.patterns,
+                    placeholder: 'pattern',
+                    width: '100%',
+                    multiple: false,
+                    createSearchChoice:function(pattern, data) {
+                        if ($(data).filter(function() {
+                                                return this.text.localeCompare(pattern)===0;
+                                            }).length===0) {
+                            
+                            new_value = {'id': pattern.uri , 'value': pattern.uri, 'template': pattern.template, 'text': pattern.text, 'type': 'e' };
+                            return new_value;
+                        }
+                    }
+                }
+                
+                
+                $("#patterns").select2(inclusion_patterns_initialization);
+                
+                $("#patternsE").select2(exclusion_patterns_initialization);
+                
+            }); 
+            
+ 
             
             $("#savebutton").click(function(){
                 

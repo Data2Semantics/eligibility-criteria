@@ -1,17 +1,13 @@
  <div class="control-group">
                     <div class="controls">
-                    <label for="patterns"><i class="icon-search"></i> Select a Pattern</label>
-                    <select id="patternsE" style="width: 100%; ">
-                            <option></option>
-                            {% for p in patterns %}
-                                <option id="{{ p.uri }}" value="{{ p.uri }}" template="{{ p.template }}">{{ p.text }}</option>
-                            {% endfor %}
-                    </select>
-                            </div>
-                    </div>
+                    <label for="patternsE"><i class="icon-search"></i> Select a Pattern</label>
+                    <input type="hidden" id="patternsE" style="width: 100%; ">
+                    </input>
+                   </div>
+</div>
 <script>
     $(document).ready(function() {        
-        $("#patternsE").select2({ placeholder: "Start typing..." , allowClear: true });
+        //$("#patternsE").select2({ placeholder: "Start typing..." , allowClear: true });
         
   
     });
@@ -25,7 +21,6 @@
             var pattern_uri = $(this).attr('value');
             var pattern_template = $(this).attr('template');
             var pattern_text = $(this).attr('text');
-            
             var type = 'e';
             buildPatternCombo(pattern_uri, pattern_template, pattern_text, type);
         });

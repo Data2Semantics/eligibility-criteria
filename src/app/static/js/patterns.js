@@ -17,7 +17,9 @@
         
         
         // Replace the {} in pattern_template with input fields, create a div, and add it to the #editor div
-        pattern_html = pattern_template.replace(re, '<input type="hidden" class="entry"></input><a class="add"><i class="icon-plus"></i></a>');
+        pattern_html = pattern_template.replace(re, '<input type="hidden" class="entry"></input>'
+                                                + '<a class="add"><i class="icon-plus"></i></a>'
+                                                + '<a class="addpattern"><i class="icon-th"></i></a>');
     
         var close = $('<a href="#" class="close" data-dismiss="alert"><i class="icon-remove"></i></a>&nbsp;');
         var p_eval_div = $('<div class="pattern-and-eval"></div>');
@@ -97,6 +99,12 @@
      
         
         $(editor_div_id + " .add").click(function(event) {
+            var new_input = $('<input type="hidden"></input>');
+            $(this).before(new_input);
+            new_input.select2(select2_initialization);
+        });
+        
+        $(editor_div_id + " .addpattern").click(function(event) {
             var new_input = $('<input type="hidden"></input>');
             $(this).before(new_input);
             new_input.select2(select2_initialization);

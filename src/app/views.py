@@ -58,10 +58,13 @@ def graph():
 
 @app.route('/editor')
 def editor():
+    return render_template('editor.html')
+    
+@app.route('/patterns')
+def patterns():
     patterns = s.get_patterns()
-    
-    return render_template('editor.html', patterns = patterns)
-    
+    return jsonify(patterns = patterns)
+
     
 @app.route('/patternvalues')
 def patternvalues():
