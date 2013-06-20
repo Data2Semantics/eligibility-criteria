@@ -2,32 +2,21 @@
     <script>
         $(document).ready(
                           function() {
-                    $("#e1").select2({ placeholder: "Select a trial" , allowClear: true });
+                    $("#trialselect").select2({ placeholder: "Select a trial" , allowClear: true });
                     
-                    $("#e1").click(function() {
-                                      $("#criteria_text").show();
-                                      var trial_name = $(this).find('option:selected').text();
-                                      if (trial_name == "Breast Cancer 1") {
-                                                          $("#criteria_text").empty();
-                                                         $("#criteria_text").load("static/txt/NCT01806259.txt");
-                                                         
-                                      }
-                                      if (trial_name == "Breast Cancer 2") {
-                                                         $("#criteria_text").empty();
-                                                         $("#criteria_text").load("static/txt/NCT01864798.txt");
-                                                         
-                                      }
-                                      if (trial_name == "Breast Cancer 3") {
-                                                         $("#criteria_text").empty();
-                                                         $("#criteria_text").load("static/txt/NCT01823107.txt");
-                                                         
-                                      }
-                                       if (trial_name == "") {
-                                                         $("#criteria_text").empty();
-                                                         $("#criteria_text").hide();
-                                                         
-                                      }
-                                      });
+                    $("#trialselect").click(function() {
+                        $("#criteria_text").empty();
+                        $("#criteria_text").show();
+                        
+                        var trial = $(this).find('option:selected').attr('value');
+                    
+                        $.get('/trialtable',{'trial': trial}, function(data){
+                            $('#criteria_text').html(data);
+                        });
+                        
+                        $("td:contains('Eligibility Criteria')").scrollTo()
+
+                    });
                     
         
                    }
@@ -35,11 +24,11 @@
                    );
     </script>
     <div>
-    <select id="e1" style="width: 100%; ">
+    <select id="trialselect" style="width: 100%; ">
         <option></option>           
-        <option value="bc1">Breast Cancer 1</option>
-        <option value="bc2">Breast Cancer 2</option>
-        <option value="bc3">Breast Cancer 3</option>
+        <option value="NCT01806259">Breast Cancer 1</option>
+        <option value="NCT01864798">Breast Cancer 2</option>
+        <option value="NCT01823107">Breast Cancer 3</option>
         <option value="lc1">Lung Cancer 1</option>
         <option value="lc2">Lung Cancer 2</option>
         <option value="d">Diabetes 1</option>

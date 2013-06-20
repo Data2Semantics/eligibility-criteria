@@ -3,7 +3,8 @@
 
 from flask import render_template, g, request, jsonify
 import util.sparql as s
-
+from bs4 import BeautifulSoup
+import requests
 
 from app import app
 
@@ -86,4 +87,16 @@ def patterninstances():
     
     return jsonify(instances = pattern_instances)
 
+
+@app.route('/trialtable', methods= ['GET'])
+def trialtable():
+    trial_id = request.args.get('trial','')
     
+    url = "http://clinicaltrials.gov/ct2/show/record/{}".format(trial_id)
+    
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content)
+
+    content = soup.find(id='main-content')
+    
+    return unicode(content)

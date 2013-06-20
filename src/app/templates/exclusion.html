@@ -13,10 +13,7 @@
     $(document).ready(function() {        
         $("#patternsE").select2({ placeholder: "Start typing..." , allowClear: true });
         
-        $.get('/patternvalues', function(data){
-            $.localStorage('patternvalues',data.values);            
-            console.log('added to local storage');
-        });    
+  
     });
     
     $('#patternsE').change(function () {
@@ -29,7 +26,8 @@
             var pattern_template = $(this).attr('template');
             var pattern_text = $(this).attr('text');
             
-            buildPatternCombo(pattern_uri, pattern_template, pattern_text, 'e');
+            var type = 'e';
+            buildPatternCombo(pattern_uri, pattern_template, pattern_text, type);
         });
         
     });

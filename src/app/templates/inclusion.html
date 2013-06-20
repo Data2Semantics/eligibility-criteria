@@ -13,10 +13,7 @@
     $(document).ready(function() {        
         $("#patterns").select2({ placeholder: "Start typing..." , allowClear: true });
         
-        $.get('/patternvalues', function(data){
-            $.localStorage('patternvalues',data.values);            
-            console.log('added to local storage');
-        });    
+  
     });
     
     $('#patterns').change(function () {

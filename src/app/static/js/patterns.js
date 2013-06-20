@@ -19,26 +19,21 @@
         // Replace the {} in pattern_template with input fields, create a div, and add it to the #editor div
         pattern_html = pattern_template.replace(re, '<input type="hidden" class="entry"></input><a class="add"><i class="icon-plus"></i></a>');
     
-        var p_eval_div = $('<div><a href="#" class="close" data-dismiss="alert"><i class="icon-remove"></i></a></div>');
+        var close = $('<a href="#" class="close" data-dismiss="alert"><i class="icon-remove"></i></a>&nbsp;');
+        var p_eval_div = $('<div class="pattern-and-eval"></div>');
+        p_eval_div.append(close);
         
-        var pattern_div = $('<div class="pattern alert alert-info">'
+        var pattern_div = $('<div class="pattern alert alert-info" value="'+ pattern_uri +'" type="'+type+'">'
                             +pattern_html
                             +'</div>'
                             );
         
         
         var evaluation_div = $('<div class="eval"><small><form class="form-horizontal">'
-                                 +'<label class="radio inline"><input type="radio" id="radio1" name="radio" />Ok</label>'
-                                 +'<label class="radio inline"><input type="radio" id="radio2" name="radio" />Incomplete</label>'
+                                 +'<label class="radio inline"><input type="radio" name="ok" />Ok</label>'
+                                 +'<label class="radio inline"><input type="radio" name="incomplete" checked/>Incomplete</label>'
                                 + '</form></small></div>');
   
-          
-        p_eval_div.append(pattern_div);
-        p_eval_div.append(evaluation_div);
-        $(editor_div_id).append(p_eval_div);
-        
-        
-        
         // Build some examples (i.e. show instances of the pattern selected)
         
         $.getJSON('/patterninstances',{'uri': pattern_uri}, function(data){
@@ -61,17 +56,24 @@
                     examples_div.toggle();
                 });
                 
-                p_eval_div.append("&nbsp;");
-                p_eval_div.append(help);
+                close.after(help);
                 
 
-                $('#editor_div_id').append(examples_div);
+                $(editor_div_id).append(examples_div);
             }
         });
+        
+        p_eval_div.append(pattern_div);
+        p_eval_div.append(evaluation_div);
+        $(editor_div_id).append(p_eval_div);
+        
+        
+        
+
  
      
           
-        // This is the Select2 stuff.
+        // This is the Select2 stuff for the Concepts
         
         var select2_initialization = {
             data : pattern_values,

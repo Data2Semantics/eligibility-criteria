@@ -24,15 +24,18 @@
     
     <style>
         
-        pre {
       
         font-size: 10px;
-        }
+        }*/
         .examples {
             font-size: 10px;
             line-height: 1.4; 
         }
         
+        #criteria_text {
+            height: 600px;
+            overflow: scroll;
+        }
         
     </style>
 
@@ -54,6 +57,23 @@
         
          <div class="row">
             <div class="span5">
+                <div class="row">
+                    <div class="span5">
+                        <div class="navbar">
+                            <div class="navbar-inner">
+                              <a class="brand" href="#"></a>
+                              <ul class="nav pull-right">
+                                <li class="divider-vertical"></li>
+                                <li><a id='savebutton' href="#">Save</a></li>
+                                <li class="divider-vertical"></li>
+                              </ul>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
                 <div class="row">
                     <div class="span5" id ="trial">
                         <h4>Trial</h4>
@@ -93,7 +113,7 @@
             </div>
 
             <div class="span7">
-                <pre id="criteria_text">  </pre>
+                <div class="well" id="criteria_text">  </div>
             </div>
         </div>
     </div>
@@ -104,6 +124,69 @@
         $(document).ready(function() {
             $("#criteria_text").hide();
             // nothing
+            
+            $.get('/patternvalues', function(data){
+                $.localStorage('patternvalues',data.values);
+                
+                console.log(data.values);
+                console.log('added pattern values to local storage');
+            });
+            
+            $("#savebutton").click(function(){
+                
+                var pattern_data = [];
+                
+                var trial = $('#trialselect').find('option:selected').attr('value');
+                    
+                console.log(trial);
+                
+                $('.pattern-and-eval').each(function(index){
+                    var pattern = $(this).find('.pattern')[0];
+                    var evaluation = $(this).find('.eval')[0];
+                    
+                    var pattern_uri = $(pattern).attr('value');
+                    var pattern_type = $(pattern).attr('type');
+                    
+                    console.log(pattern_uri);
+                    
+                    var criteria = [];
+                    
+                    var inputs = $(pattern).find('input.entry');
+                    
+                    console.log(inputs);
+                    
+                    inputs.each(function(index){
+                        criteria.push($(this).attr('value'));
+                        console.log($(this).attr('value'));
+                    });
+                    
+                    console.log(criteria);
+                    
+                    
+                    var eval_buttons = $(evaluation).find('input');
+                    
+                    var complete = false;
+                    
+                    eval_buttons.each(function(index){
+                        if ($(this).attr('name') == 'ok' && $(this).is(':checked')) {
+                            console.log('Ok!');
+                            complete = true;
+                        }
+                    });
+                    
+                    
+                    
+                    
+                    var data = {'type': pattern_type, 'uri': pattern_uri, 'criteria': criteria, 'complete': complete};
+                    
+                    pattern_data.push(data);
+                    
+                });
+                
+                var trial_data = {'trial': trial, 'patterns': pattern_data};
+                
+                console.log(trial_data);
+            });
         });
     </script>
     <script src="static/js/bootstrap.js"></script>
