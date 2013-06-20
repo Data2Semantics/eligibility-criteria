@@ -5,6 +5,9 @@ from flask import render_template, g, request, jsonify
 import util.sparql as s
 from bs4 import BeautifulSoup
 import requests
+import os
+import os.path
+from datetime import datetime
 
 from app import app
 
@@ -56,6 +59,21 @@ def graph():
     
     return "Nothing! Oops"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/editor')
 def editor():
     patterns = s.get_patterns()
@@ -70,6 +88,24 @@ def savetrial():
     trial = request.json['trial']
     
     trial_rdf = s.build_trial_rdf(trial, patterns)
+    
+    trial_output_path = app.config['TRIAL_OUTPUT_PATH']
+    
+    print "Checking if directory exists:", trial_output_path
+    if not os.path.exists(trial_output_path):
+        print "Creating", trial_output_path
+        os.makedirs(trial_output_path)
+        print "Created"
+        
+    now = datetime.now()
+    
+    trial_file = open('{}/{}_{}.ttl'.format(trial_output_path,trial, now.isoformat('T')),'w')
+
+    trial_file.write(trial_rdf)
+    
+    trial_file.close()
+    
+    print "Written RDF to", trial_file.name
     
     return 'Success!'
 

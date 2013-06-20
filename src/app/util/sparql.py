@@ -135,7 +135,7 @@ def get_values():
 
 
 
-def build_graph(G, name, source, target, query, intermediate = None):
+def build_graph(G, name, source=None, target=None, query=None, intermediate = None):
     #print "Building graph for {}.".format(name)
     
     #print query
@@ -149,11 +149,17 @@ def build_graph(G, name, source, target, query, intermediate = None):
     
     for result in results["results"]["bindings"]:
         if not intermediate :
-            source_binding = uri_to_label(result[source]["value"]).replace("'","")
+            if not source :
+                source_binding = uri_to_label(name).replace("'","");
+                source_uri = name
+            else :
+                source_binding = uri_to_label(result[source]["value"]).replace("'","")
+                source_uri = result[source]["value"]
+                
             target_binding = uri_to_label(result[target]["value"]).replace("'","")
             
             
-            G.add_node(source_binding, label=source_binding, type=source, uri=result[source]["value"])
+            G.add_node(source_binding, label=source_binding, type=source, uri=source_uri)
             G.add_node(target_binding, label=target_binding, type=target, uri=result[target]["value"])
             G.add_edge(source_binding,target_binding)
             
@@ -215,8 +221,11 @@ def build_pi_graph(criterion_uri):
     
     q_up = render_template('pi_to_pi_upwards.q', criterion_uri = criterion_uri)
     q_down = render_template('pi_to_pi_downwards.q', criterion_uri = criterion_uri)
-    G = build_graph(G, criterion_uri, "child", "trial", q_up, intermediate = "parent")
-    G = build_graph(G, criterion_uri, "parent", "trial", q_down, intermediate = "child")
+    q_trial = render_template('pi_originating_trial.q', criterion_uri = criterion_uri)
+    
+    G = build_graph(G, criterion_uri, source="child", target="trial", query=q_up, intermediate = "parent")
+    G = build_graph(G, criterion_uri, source="parent", target="trial", query=q_down, intermediate = "child")
+    G = build_graph(G, criterion_uri, source="child", target="trial", query=q_trial)
     
 
     
