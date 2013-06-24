@@ -97,7 +97,7 @@
      
         
         $(editor_div_id + " .add").click(function(event) {
-            var new_input = $('<input type="hidden"></input>');
+            var new_input = $('<input type="hidden" class="entry"></input>');
             $(this).before(new_input);
             new_input.select2(select2_initialization);
         });
