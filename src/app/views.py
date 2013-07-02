@@ -148,3 +148,41 @@ def trialtable():
     content = soup.find(id='main-content')
     
     return unicode(content)
+
+
+
+@app.route('/experiment2')
+def experi():
+    patterns = s.get_patterns()
+    
+    return render_template('experiment2.html')
+
+
+@app.route('/saveevaluation', methods=['POST'])
+def saveevaluation():
+    print "??"
+    #print request.json
+    
+    
+    result = request.json['evaluation']
+    eval_output_path = app.config['EVALUATION_OUTPUT_PATH']
+    
+    print "Checking if directory exists:", eval_output_path
+    if not os.path.exists(eval_output_path):
+        print "Creating", eval_output_path
+        os.makedirs(eval_output_path)
+        print "Created"
+        
+    now = datetime.now()
+    
+    eval_file = open('{}/{}.txt'.format(eval_output_path, now.isoformat('T')),'w')
+
+    s = str(result)
+    eval_file.write(s)
+    
+    eval_file.close()
+    
+    print "Written txt to", eval_file.name 
+    
+    return 'Success!'
+

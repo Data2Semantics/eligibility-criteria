@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Clinical Trial Editor</title>
+    <link rel="stylesheet" href="static/css/bootstrap.css" />
+    <link rel="stylesheet" href="static/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" href="static/css/commit.css" />
+    <link rel="stylesheet" href="static/css/select2.css" />
+    <link rel="stylesheet" href="static/css/select2-bootstrap.css" />
+    
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/static/js/jquery.storage.js"></script>
+    <script src="/static/js/jQuery.select2Buttons.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/select2Buttons.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <!--script src="http://code.jquery.com/jquery-1.9.1.js"></script-->
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <!--<script src="static/js/d3.v3.js"></script>-->
+    
+    <script src="/static/js/patterns.js"></script>
+    
+    <style>
+        
+      
+        .well{
+            
+            overflow: scroll;
+        }
+        #trial1, #trial2 {
+            height: 550px;  
+        }
+        
+     
+        #evaluation{
+            height: 45px;
+
+        }
+    </style>
+
+    
+</head>
+
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="page-header">
+                    <h1><img src="static/img/logo-no-text-150dpi.png"style="float: left; width: 100px;"/>Clinical Trials <small>Verification of the approach to supporting design of eligibility criteria</small> </h1>
+                    <p>Copyright (c) 2013, Krystyna Milian and Rinke Hoekstra, VU University Amsterdam</p>
+                </div>
+            </div>
+        </div>
+                    
+        <div class="row-fluid">
+            
+                <div class="span12">
+                    <div class="btn-toolbar">
+                        <div class="btn-group">
+                            <button class="btn" id="" disabled="disabled">Choose example</button>
+                            <button class="btn" id="1" >1</button>
+                            <button class="btn" id="2" >2</button>
+                            <button class="btn" id="3" >3</button>
+                            <button class="btn" id="4" >4</button>
+                            <button class="btn" id="5" >5</button>
+                            
+                            <button class="btn" id="6" >6</button>
+                            <button class="btn" id="7" >7</button>
+                            <button class="btn" id="8" >8</button>
+                            <button class="btn" id="9" >9</button>
+                            <button class="btn" id="10" >10</button>
+                            <button class="btn" id="11" >11</button>
+                            <button class="btn" id="12" >12</button>
+                            <button class="btn" id="13" >13</button>
+                            <button class="btn" id="14" >14</button>
+                            <button class="btn" id="15" >15</button>
+                            <button class="btn" id="16" >16</button>
+                            <button class="btn" id="17" >17</button>
+                            <button class="btn" id="18" >18</button>
+                            <button class="btn" id="19" >19</button>
+                            <button class="btn" id="20" >20</button>
+                            <button class="btn" id="otherCase">Other</button>
+                        </div>
+                     </div>
+            </div>
+       
+        </div>
+        
+       
+    
+        <div class="row-fluid">
+             <div class="span6">
+                 <div class="well" >
+                    <label> Criterion:</label   >
+                    <label class = "input" id="criterion1"><input type="text" placeholder="" > </label>
+                    <label class = "input" id="trial1id"><input type="text" placeholder="" > </label>
+                    
+                    <!--div class="control-group" id ="div-select-criterion">
+                            <div class="controls">
+                                    <label for="criteria"><i class="icon-search"></i> Select a Criterion</label>
+                                    <select id="criteria" style="width: 100%; ">
+                                            <option></option>
+                                            {% for c in criteria %}
+                                                <option id="{{ c.uri }}" value="{{ c.uri }}">{{ c.text }}</option>
+                                            {% endfor %}
+                                    </select>
+                            </div>
+                    </div-->
+                    
+                </div>
+            </div>
+             <div class="span6">
+                 <div class="well" >
+                    <label> Suggested relaxation:</label   >
+                    <label class = "input" id="criterion2"><input type="text" placeholder="" > </label>
+                    <label class = "input" id="trial2id"><input type="text" placeholder="" > </label>
+                </div>
+            </div>
+            
+        </div>
+     
+    <div id ="case">   
+         <div class="row-fluid">
+         <div class="span6 offset6">
+                <div id="evaluation">
+                   <small>
+                    <form class="form-inline">
+                        
+                        <label>Is it relevant? </label>
+                        <label class="checkbox" > <input type="checkbox" id="ok"/> Yes </label>&nbsp&nbsp
+                        <label class="checkbox" > <input type="checkbox" id= "notok"/> No </label>&nbsp&nbsp
+                        <label class="checkbox" > <input type="checkbox" id="unclear"/> ? </label>&nbsp&nbsp
+                        <input type="text" id="comment" class="input-large" placeholder="Comment">
+                        <a class="btn" id='savebutton2' href="#"><i class="icon-save"></i></a>
+                         
+                        
+                       
+                       
+                      </form>
+                    </small>
+               
+                 
+                </div>
+        </div>
+         </div>
+        
+         <div class="row-fluid">
+            <div class="span6" >
+                <h4>Origin</h4>
+                 <div class="well" id ="trial1" > </div>
+                
+            </div>
+            <div class="span6" >
+                <h4 > <div id="trial2_label">Origin</div></h4>
+                 <div class="well" id ="trial2">  </div>
+            </div>
+        </div>
+         
+    </div>
+     <script type="application/x-javascript">
+          var evId ="1",  startTime=0, endTime=0;
+          
+          
+          $(document).ready(function() {
+            $("#trial1id").hide();
+            $("#trial2id").hide();
+            $("#case").hide();
+            //$("#otherCase").hide();
+           // $("div-select-criterion").hide();
+            
+            $(".btn-group .btn").click(function(){
+            
+                $("#case").show();
+                $("form")[0].reset();
+                
+                
+                //alert($(this).text());
+                var c1="", c2="", t1="", t2="";
+                evId = $(this).text();
+                 console.log(evId);
+                if (evId =="1" ) {
+                    c1="No prior chemotherapy";
+                    t1= "NCT00003013"; 
+                    c2="Has had no prior chemotherapy unless >5 years ago";
+                    t2="NCT00493870";
+                }
+                
+                 if (evId =="2" ) {
+                    c1="No prior radiotherapy";
+                    t1= "NCT00003857"; 
+                    c2="No prior radiotherapy unless growth has been documented following radiotherapy";
+                    t2="NCT00622466";
+                }
+                if (evId =="3" ) {
+                    c1="No prior radiotherapy";
+                    t1= "NCT00003857"; 
+                    c2="No radiotherapy within the past 4 weeks, except if to a nontarget lesion only";
+                    t2="NCT00450515";
+                }
+                  if (evId =="4" ) {
+                    c1="No prior cancer";
+                    t1= "NCT00899496"; 
+                    c2="No prior cancer except for basal cell carcinoma or carcinoma in situ";
+                    t2="NCT00003577";
+                }
+                  if (evId =="5" ) {
+                    c1="No other prior malignancy";
+                    t1= "NCT00005079"; 
+                    c2=" No prior malignancy other than curatively treated carcinoma in situ of the cervix or skin cancer";
+                    t2="NCT00003539";
+                }
+                  if (evId =="6" ) {
+                    c1="No distant metastases";
+                    t1= "NCT00005079"; 
+                    c2="No distant metastases except for positive ipsilateral supraclavicular nodes";
+                    t2="NCT00003050";
+                }
+                  if (evId =="7" ) {
+                    c1="Radiotherapy: At Least 4 Weeks Since Prior Radiotherapy";
+                    t1= "NCT00003066"; 
+                    c2="Radiotherapy: At Least 3 Weeks Since Prior Radiotherapy";
+                    t2="NCT00003548";
+                }
+                  if (evId =="8" ) {
+                   c1="Radiotherapy: At Least 4 Weeks Since Prior Radiotherapy";
+                    t1= "NCT00003066"; 
+                    c2="Radiotherapy: At Least 2 Weeks Since Prior Radiotherapy";
+                    t2="NCT00003428";
+                }
+                  if (evId =="9" ) {
+                    c1="At Least 1 Month Since Prior Investigational Drugs";
+                    t1= "NCT00003140"; 
+                    c2="At Least 3 Weeks Since Prior Investigational Drugs";
+                    t2="NCT00004175";
+                  } 
+                  if (evId =="10" ) {
+                    c1="At Least 4 Weeks Since Prior Major Surgery";
+                    t1= "NCT00006007"; 
+                    c2="Surgery: At Least 2 Weeks Since Prior Major Surgery";
+                    t2="NCT00002680";
+                }
+                  if (evId =="11" ) {
+                    c1="Platelet Count Greater Than Or Equal To 90,000/Ml";
+                    t1= "NCT00001944"; 
+                    c2="Platelet Count At Least 50,000/Mm^3";
+                    t2="NCT00003205";
+                }
+                  if (evId =="12" ) {
+                    c1="Hemoglobin Greater Than 10 G/Dl";
+                    t1= "NCT00004205"; 
+                    c2="Hemoglobin Greater Than 8.0 G/Dl";
+                    t2="NCT00001832";
+                }
+                  if (evId =="13" ) {
+                    c1="Creatinine Less Than 1.2 Mg/Dl";
+                    t1= "NCT00003042"; 
+                    c2="Creatinine Less Than 1.5 Mg/Dl";
+                    t2="NCT00002585";
+                }
+                  if (evId =="14" ) {
+                    c1="Absolute Neutrophil Count At Least 1,700/Mm^3";
+                    t1= "NCT00003690"; 
+                    c2="Absolute Neutrophil Count At Least 1,500/Mm3";
+                    t2="NCT00005807";
+                }
+                  if (evId =="15" ) {
+                    c1="Hepatic: Bilirubin No Greater Than 1.5 Times Normal";
+                    t1= "NCT00003035"; 
+                    c2="Bilirubin No Greater Than 2 Times Upper Limit Of Normal (Uln)";
+                    t2="NCT00006007";
+                }
+                  if (evId =="16" ) {
+                    c1="More Than 4 Weeks Since Prior Hormonal Therapy";
+                    t1= "NCT00003440"; 
+                    c2="At Least 3 Weeks Since Prior Hormonal Therapy";
+                    t2="NCT00003540";
+                }
+                  if (evId =="17" ) {
+                    c1="No prior biologic therapy";
+                    t1= "NCT00033683"; 
+                    c2="No prior biologic therapy or immunotherapy for breast cancer";
+                    t2="NCT00045032";
+                }
+                  if (evId =="18" ) {
+                    c1="No prior anthracyclines";
+                    t1= "NCT00087178"; 
+                    c2="No prior anthracyclines for another malignancy";
+                    t2="NCT00045032";
+                }
+                  if (evId =="19" ) {
+                    c1="No prior anthracyclines";
+                    t1= "NCT00087178"; 
+                    c2="No prior anthracyclines greater than 240 mg/m2";
+                    t2="NCT00004925";
+                }
+                  if (evId =="20" ) {
+                    c1="No prior hormonal therapy";
+                    t1= "NCT00054587"; 
+                    c2="No prior hormonal therapy for this malignancy unless total duration of hormonal therapy was no more than 28 days before randomization";
+                    t2="NCT00103181";
+                }
+                
+                
+                $('#criterion1').text(c1);
+                $('#criterion2').text(c2);
+                $('#trial1id').text(t1);
+                $('#trial2id').text(t2);
+                
+                
+                $.get('/trialtable',{'trial': t1}, function(data){
+                            $('#trial1').html(data);
+                });
+                $.get('/trialtable',{'trial': t2}, function(data){
+                                $('#trial2').html(data);
+                });
+                
+                
+                startTime = new Date(); 
+                
+            });
+            
+            $("#trial2_label").click(function(){
+                  $('#trial1').html(data);
+                });
+            
+            });
+            
+          
+            $("#savebutton2").click(function(){
+                // console.log(evId);
+                
+                endTime = new Date();
+                var time = Math.round((endTime - startTime)/1000);
+                
+                $('#' + [evId]+'').removeClass("btn");
+                $('#' + [evId]+'').addClass("btn btn-success");
+                 
+                
+    
+                var ok_value = ($('#ok').is(':checked'));
+                var notok_value =  $('#notok').prop('checked'); 
+                var unclear_value =  $('#unclear').is(':checked'); 
+                var comment_value = $('#comment').val();
+                
+                var data = {'criterion1':$('#criterion1').text(),'trial1':$('#trial1id').text(),'criterion2': $('#criterion2').text(),'trial2':$('#trial2id').text(),'ok':ok_value,'not ok':notok_value,'unclear':unclear_value,'comment':comment_value,'time':time+'s'};
+                console.log(data);
+                
+                result = {'evaluation' : data};
+                  
+                
+                $.ajax({
+                    type: 'POST',
+                    // Provide correct Content-Type, so that Flask will know how to process it.
+                    contentType: 'application/json',
+                    // Encode your data as JSON.
+                    data: JSON.stringify(result),
+                    // This is the type of data you're expecting back from the server.
+                    dataType: 'json',
+                    url: '/saveevaluation',
+                    success: function (e) {
+                        console.log(e);
+                    }
+                });
+                
+                
+            });   
+    
+             $("#otherCase").click(function(){
+                $("div-select-criterion").show();
+             });
+    </script>
+    
+    <script src="static/js/bootstrap.js"></script>
+    <script src="static/js/select2.js"></script>
+    <script src="static/js/vendor/jquery.ui.widget.js"></script> 
+</body>
+</html>
