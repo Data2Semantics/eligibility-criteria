@@ -1,10 +1,10 @@
-function drawChordForConcept(uri) {
+function drawChordForConcept(service_url, uri) {
     $('#graph').empty();
     $("#loading").show();
-    $.get('/graph', {'type': 'concepts', 'uri': uri }, function(data) {
+    $.get(service_url, {'type': 'concepts', 'uri': uri }, function(data) {
                 $("#loading").hide();
                 if (data) {
-                        drawChord(data.matrix, data.concepts, "#graph");
+                        drawChord(service_url, data.matrix, data.concepts, "#graph");
                 } else {
                         $("#noresponse").show();
                 }
@@ -15,7 +15,7 @@ function drawChordForConcept(uri) {
 
 
 
-function drawChord(matrix, concepts, target) {
+function drawChord(service_url, matrix, concepts, target) {
     var width = 900,
     height = 900,
     outerRadius = Math.min(width-150, height-150) / 2 - 10,
@@ -126,7 +126,7 @@ function drawChord(matrix, concepts, target) {
     
     function click(concept) {
         console.log(concept)
-        drawChordForConcept(concept.uri);
+        drawChordForConcept(service_url, concept.uri);
     }
 }
 

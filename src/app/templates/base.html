@@ -3,12 +3,12 @@
 <html>
 <head>
     <title>Eligibility Criteria Visualizer</title>
-    <link rel="stylesheet" href="static/css/bootstrap.css" />
-    <link rel="stylesheet" href="static/css/commit.css" />
-    <link rel="stylesheet" href="static/css/select2.css" />
-    <link rel="stylesheet" href="static/css/select2-bootstrap.css" />
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/commit.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/select2-bootstrap.css') }}" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="static/js/d3.v3.js"></script>
+    <script src="{{ url_for('.static',filename='js/d3.v3.js') }}"></script>
 
     <style>
 
@@ -83,7 +83,7 @@
         <div class="row">
             <div class="span12">
                 <div class="page-header">
-                    <h1><img src="static/img/logo-no-text-150dpi.png"style="float: left; width: 100px;"/>Eligibility Criteria <small>A Visualisation</small> </h1>
+                    <h1><img src="{{ url_for('.static',filename='img/logo-no-text-150dpi.png') }}"style="float: left; width: 100px;"/>Eligibility Criteria <small>A Visualisation</small> </h1>
                     <p>Copyright (c) 2013, Krystyna Milian and Rinke Hoekstra, VU University Amsterdam</p>
                 </div>
             </div>
@@ -129,8 +129,8 @@
             $("#noresponse").toggle();
         });
     </script>
-    <script src="static/js/bootstrap.js"></script>
-    <script src="static/js/select2.js"></script>
-    <script src="static/js/vendor/jquery.ui.widget.js"></script> 
+    <script src="{{ url_for('.static',filename='js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('.static',filename='js/select2.js') }}"></script>
+    <script src="{{ url_for('.static',filename='js/vendor/jquery.ui.widget.js') }}"></script> 
 </body>
 </html>

@@ -10,7 +10,7 @@
         </div>
 </div>
 
-<script type="application/x-javascript" src="static/js/concept_chord.js"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/concept_chord.js') }}"></script>
 <script>
     $(document).ready(function() { $("#concepts").select2({ placeholder: "Start typing..." , allowClear: true }); });
     
@@ -29,7 +29,7 @@
             
             var concept_uri = $(this).attr('value')
             
-            drawChordForConcept(concept_uri);
+            drawChordForConcept('{{ url_for("graph") }}', concept_uri);
         });
         
     });

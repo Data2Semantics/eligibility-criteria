@@ -1,11 +1,11 @@
-function drawGraphForTrial(uri, id) {
+function drawGraphForTrial(service_url, uri, id) {
     $("#graph").empty();
     $("#loading").show();
     
-    $.get('/graph', {'type': 'trials', 'uri': uri, 'id': id }, function(data) {
+    $.get(service_url, {'type': 'trials', 'uri': uri, 'id': id }, function(data) {
                 $("#loading").hide();
                 if (data.graph.links.length > 0) {
-                        drawTrialGraph(data.graph);
+                        drawTrialGraph(service_url, data.graph);
                 } else {
                         $("#noresponse").show();        
                 }
@@ -13,7 +13,7 @@ function drawGraphForTrial(uri, id) {
 }
 
 
-function drawTrialGraph(graph) {
+function drawTrialGraph(service_url, graph) {
   var width = 900,
       height = 900;
   
@@ -81,10 +81,10 @@ function drawTrialGraph(graph) {
   
   function click(n) {
         if (n.type == 'trial') {
-            drawGraphForTrial(n.uri, n.label);
+            drawGraphForTrial(service_url, n.uri, n.label);
         }
         if (n.type == 'concept') {
-            drawChordForConcept(n.uri);
+            drawChordForConcept(service_url, n.uri);
         }
         
   }

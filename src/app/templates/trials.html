@@ -10,7 +10,7 @@
         </div>
 </div>
 
-<script type="application/x-javascript" src="static/js/trial_graph.js"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/trial_graph.js') }}"></script>
 <script>
     $(document).ready(function() { $("#trials").select2({ placeholder: "Start typing..." , allowClear: true }); });
     
@@ -31,7 +31,7 @@
             var trial_uri = $(this).attr('value')
             var trial_id = $(this).attr('id')
             
-            drawGraphForTrial(trial_uri, trial_id);
+            drawGraphForTrial('{{ url_for("graph") }}',trial_uri, trial_id);
 
         });
         

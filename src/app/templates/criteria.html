@@ -10,7 +10,7 @@
         </div>
 </div>
 
-<script type="application/x-javascript" src="static/js/eligibility_graph.js"></script>
+<script type="application/x-javascript" src="{{ url_for('.static',filename='js/eligibility_graph.js') }}"></script>
 <script>
     $(document).ready(function() { $("#criteria").select2({ placeholder: "Start typing..." , allowClear: true }); });
     
@@ -29,7 +29,7 @@
             
             var criterion_uri = $(this).attr('value')
             
-            $.get('/graph', {'type': 'criteria', 'uri': criterion_uri }, function(data) {
+            $.get('{{ url_for('graph') }}', {'type': 'criteria', 'uri': criterion_uri }, function(data) {
                 $("#loading").hide();
                 console.log(data);
                 if (data.graph.links.length > 0) {
