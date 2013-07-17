@@ -230,15 +230,23 @@ def build_pi_graph(criterion_uri):
 
     
     types = {}
+    names = {}
     for n, nd in G.nodes(data=True):
+        
+        print nd['type']
+        
         if nd['type'] != 'trial' :
+            label = nd['label'][:-3]
             types[n] = 'criterion_cg'
+            names[n] = label
         else :
+            label = nd['label'].replace('Trial','').upper()
             types[n] = 'trial_cg'
+            names[n] = label
     
     
     nx.set_node_attributes(G,'type', types)
-    
+    nx.set_node_attributes(G,'label', names)
     
     g_json = json_graph.node_link_data(G) # node-link format to serialize
     
