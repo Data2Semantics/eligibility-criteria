@@ -10,12 +10,30 @@
         </div>
 </div>
 
+<div id="empty_repository" class="row">
+    <div class="offset4 span4">
+        <div class="alert alert-warning" style="margin-top: 2em;">There seems to be a problem with a repository. Please contact us: krystyna.milian@gmail.com</div>
+    </div>
+</div>
+
 <script type="application/x-javascript" src="{{ url_for('.static',filename='js/trial_graph.js') }}"></script>
 <script>
-    $(document).ready(function() { $("#trials").select2({ placeholder: "Start typing..." , allowClear: true }); });
+
+	
+    $(document).ready(function() { $("#trials").select2({ placeholder: "Start typing..." , allowClear: true }); 
+    	$("#empty_repository").hide();
+    	
+		if ($('select#trials option').length <2)
+	 	{
+	 	   $("#noselection").hide();
+		   $("#empty_repository").show();
+	 	} 
     
+	});
+    	
     $('#trials').change(function () {   
-        $("#trials option:selected").each(function (){
+  	
+		$("#trials option:selected").each(function (){
             if ($(this).is(":empty")) {
                 return;
             }
