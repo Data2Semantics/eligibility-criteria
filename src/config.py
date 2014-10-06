@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-
-SPARQL_ENDPOINT = "http://semweb.cs.vu.nl:8080/openrdf-sesame/repositories/ct"
-
+SPARQL_ENDPOINT = "http://localhost:5820/eligibility/query"
 TRIAL_OUTPUT_PATH = "edited-trials"
 
-#APPLICATION_ROOT = '/eligibility'
-#SERVER_NAME = 'semweb.cs.vu.nl'
