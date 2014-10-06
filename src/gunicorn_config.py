@@ -1,0 +1,9 @@
+workers = 1
+worker_class = 'socketio.sgunicorn.GeventSocketIOWorker'
+bind = '0.0.0.0:5200'
+pidfile = '/tmp/gunicorn-eligibility.pid'
+debug = True
+loglevel = 'debug'
+errorlog = '/tmp/gunicorn_eligibility_error.log'
+accesslog = '/tmp/gunicorn_eligibility_access.log'
+daemon = False
